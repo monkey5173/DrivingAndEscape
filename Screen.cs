@@ -39,6 +39,7 @@ class Screen
         Height = 30; //세로 넓이
         RoadWidth = 10; //길의 넓이
         Score = 0;
+        BeforeRoadUpdate = 0;
 
     }
 
@@ -87,7 +88,6 @@ class Screen
 
     public void Update()
     {
-        BeforeRoadUpdate = 0;
         Random roadMove = new Random();
 
         //레이싱하듯이 길을 한줄씩 위로 이동
@@ -99,8 +99,8 @@ class Screen
             }
         }
 
-        int roadUpdate = roadMove.Next(4) < 3 ? BeforeRoadUpdate : roadMove.Next(3) - 1;
-        
+        int roadUpdate = roadMove.NextDouble() < 0.6 ? 0 : roadMove.Next(-1, 2);
+
 
         //도로가 화면 끝을 나가지 않도록 조정해야 함
 
