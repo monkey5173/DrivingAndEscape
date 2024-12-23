@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -22,16 +23,16 @@ namespace Sketch
             Console.CursorVisible = false;
 
             Screen screen = new Screen();
-            Game game = new Game();
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
 
-            game.GameIsRunning();
-            while (game.GameIsPlaying)
+            while (true)
             {
                 screen.SetWall();
 
-                while (game.GameIsPlaying)
+                while (true)
                 {
-                    screen.Update();
+                    screen.Update(stopwatch);
                     screen.Rendering();
                     Thread.Sleep(TimeSpan.FromMilliseconds(33));
                 }

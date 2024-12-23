@@ -1,19 +1,10 @@
 ﻿using Sketch;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-struct Vector2
-{
-    int _x;
-    int _y;
-
-    public int X { get; set; }
-    public int Y { get; set; }
-    
-}
 
 class Screen
 {
@@ -22,9 +13,11 @@ class Screen
     int _roadWidth;
     int _score;
     int _beforeRoadUpdate;
+    int _roadUpdate;
     Char[,] wall;
-    Player Car = new Player();
-    Game game = new Game();
+    Player Car;
+    Game game;
+
     
 
     public int Width { get; set; }
@@ -32,6 +25,7 @@ class Screen
     public int RoadWidth { get; set; }
     public int Score { get; set; }
     public int BeforeRoadUpdate { get; set; }
+    public int RoadUpdate { get; set; }
 
     public Screen()
     {
@@ -40,12 +34,15 @@ class Screen
         RoadWidth = 10; //길의 넓이
         Score = 0;
         BeforeRoadUpdate = 0;
-
+        RoadUpdate = 0;
+        Car = new Player();
+        game = new Game();
     }
 
     public void SetWall()
-    {
+    {        
         wall = new char[Height, Width];
+        game.GameIsPlaying = true;
         int LeftEdge = (Width - RoadWidth) / 2;
         int RightEdge = LeftEdge + RoadWidth;
         Car.Position = Width / 2;
@@ -86,7 +83,7 @@ class Screen
         Console.WriteLine(stringBuilder);
     }
 
-    public void Update()
+    public void Update(Stopwatch stopwatch)
     {
         Random roadMove = new Random();
 
@@ -99,17 +96,22 @@ class Screen
             }
         }
 
-        int roadUpdate = roadMove.NextDouble() < 0.6 ? 0 : roadMove.Next(-1, 2);
+        if(stopwatch.ElapsedMilliseconds > 1000)
+        {
+            RoadUpdate = roadMove.NextDouble() < 0.2 ? BeforeRoadUpdate : roadMove.Next(-1, 2);
+            stopwatch.Restart();
+        }
+
 
 
         //도로가 화면 끝을 나가지 않도록 조정해야 함
 
-        if (roadUpdate is -1 && wall[Height - 1, 0] == ' ') roadUpdate = 1;
+        if (RoadUpdate is -1 && wall[Height - 1, 0] == ' ') RoadUpdate = 1;
         //도로가 왼쪽으로 움직이면서 끝값이 공백이면 즉 도로면 도로를 오른쪽으로 이동하게 설정
-        if (roadUpdate is 1 && wall[Height - 1, Width - 1] == ' ') roadUpdate = -1;
+        if (RoadUpdate is 1 && wall[Height - 1, Width - 1] == ' ') RoadUpdate = -1;
         //도로가 오른쪽으로 움직이면서 끝값이 공백이면 즉 도로면 도로를 왼쪽으로 이동
 
-        switch (roadUpdate)
+        switch (RoadUpdate)
         {
             case -1: // 도로가 왼쪽으로 이동 시
                 for (int i = 0; i < Width - 1; i++)
@@ -128,7 +130,7 @@ class Screen
                 wall[Height - 1, 0] = '.'; // 왼쪽 끝은 벽 처리
                 break;
         }
-        BeforeRoadUpdate = roadUpdate; // 전 로드 상황에 현재 로드의 상황을 대입한다.
+        BeforeRoadUpdate = RoadUpdate; // 전 로드 상황에 현재 로드의 상황을 대입한다.
         Car.Velocity = Car.Position; // 포지션 값을 속도(방향)에 대입한다. 
 
         //충돌 감지 기능을 넣어야 할듯?
@@ -136,6 +138,7 @@ class Screen
         {
             game.GameIsPlaying = false;
         }
+        Score++;
     }    
 }
 

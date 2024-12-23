@@ -9,6 +9,7 @@ namespace Sketch
     class Game
     {
         bool _gameIsPlaying;
+        bool _keepPlaying;
 
         public bool GameIsPlaying
         {
@@ -16,14 +17,16 @@ namespace Sketch
             set { _gameIsPlaying = value; }
         }
 
-        public Game()
+        public bool KeepPlaying
         {
-            GameIsPlaying = false;
+            get { return _keepPlaying; }
+            set { _keepPlaying = value; }
         }
 
-        public void GameIsRunning()
+        public Game()
         {
-            GameIsPlaying = true;
+            KeepPlaying = true;
+            GameIsPlaying = false;
         }
     }
 }

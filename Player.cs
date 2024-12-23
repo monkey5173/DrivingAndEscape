@@ -23,5 +23,17 @@ namespace Sketch
             get { return _velocity; }
             set { _velocity = value; }
         }
+
+        public void HandleOperate()
+        {
+            while (Console.KeyAvailable)
+            {
+                var inputkey = Console.ReadKey(true);
+                if (inputkey.Key == ConsoleKey.A || inputkey.Key == ConsoleKey.LeftArrow)
+                {
+                    
+                }
+            }
+        }
     }
 }
