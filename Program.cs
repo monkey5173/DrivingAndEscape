@@ -28,10 +28,12 @@ namespace Sketch
 
             while (true)
             {
+                screen.ConsoleSizeSet();
                 screen.SetWall();
 
                 while (true)
                 {
+                    screen.HandleOperate();
                     screen.Update(stopwatch);
                     screen.Rendering();
                     Thread.Sleep(TimeSpan.FromMilliseconds(33));

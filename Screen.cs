@@ -18,8 +18,6 @@ class Screen
     Player Car;
     Game game;
 
-    
-
     public int Width { get; set; }
     public int Height { get; set; }
     public int RoadWidth { get; set; }
@@ -131,7 +129,7 @@ class Screen
                 break;
         }
         BeforeRoadUpdate = RoadUpdate; // 전 로드 상황에 현재 로드의 상황을 대입한다.
-        Car.Velocity = Car.Position; // 포지션 값을 속도(방향)에 대입한다. 
+        Car.Position += Car.Velocity; // 포지션 값을 속도(방향)에 대입한다. 
 
         //충돌 감지 기능을 넣어야 할듯?
         if (Car.Position < 0 || Car.Position >= Width || wall[1, Car.Position] != ' ')
@@ -139,6 +137,33 @@ class Screen
             game.GameIsPlaying = false;
         }
         Score++;
-    }    
+    }
+
+    public void HandleOperate()
+    {
+        while (Console.KeyAvailable)
+        {
+            var inputkey = Console.ReadKey(true);
+
+            if (inputkey.Key == ConsoleKey.A || inputkey.Key == ConsoleKey.LeftArrow)
+            {
+                Car.Velocity = -1;
+            }
+            else if (inputkey.Key == ConsoleKey.D || inputkey.Key == ConsoleKey.RightArrow)
+            {
+                Car.Velocity = +1;
+            }
+            else if (inputkey.Key == ConsoleKey.S || inputkey.Key == ConsoleKey.DownArrow)
+            {
+                Car.Velocity = 0;
+            }
+        }
+    }
+
+    public void ConsoleSizeSet()
+    {
+        Console.WindowHeight = 35;
+        Console.WindowWidth = 60;
+    }
 }
 
