@@ -4,14 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Sketch
 {
+    struct Vector2
+    {
+        int _x;
+        int _y;
+
+        public int X { get { return _x; } set { _x = value; } }
+        public int Y { get { return _y; } set { _y = value; } }
+    }
+
     class Game
     {
         bool _gameIsPlaying;
         bool _keepPlaying;
         Player playerInfo;
         Screen screenInfo;
+        Vector2 printPos;
+        int[] _scoreList;
 
         public bool GameIsPlaying
         {
@@ -25,10 +37,17 @@ namespace Sketch
             set { _keepPlaying = value; }
         }
 
+        public int[] ScoreList
+        {
+            get { return _scoreList; }
+            set { _scoreList = value; }
+        }
+
         public Game()
         {
             KeepPlaying = true;
             GameIsPlaying = false;
+            printPos = new Vector2();
         }
 
         public void PSInfo(Player player, Screen screen)
@@ -90,12 +109,13 @@ namespace Sketch
             Console.BackgroundColor = ConsoleColor.Black;
             Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!< GAME OVER >!!!!!!!!!!!!!!!!!!!!!!!!!");
             Console.WriteLine("-------------------------------------------------------------");
-            Console.WriteLine($"\t\t\t[획득 점수] : {screenInfo.Score}");
+            Console.WriteLine($"\t\t   [획득 점수] : {screenInfo.Score}");
             Console.WriteLine("-------------------------------------------------------------");
             Console.WriteLine("\t타이틀로 돌아가시려면 Enter 키를 입력해주세요");
             Console.WriteLine("-------------------------------------------------------------");
             Console.WriteLine("\t    종료를 원하시면 ESC 키를 입력해주세요");
             Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\n@@@+..@@@@@@@@@@@@@@@:.....#@...+@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\n@@@@......%@...@@%......@@@@@#...@@@@@@@@@@@@..@@@@@@@@@@@@@\r\n@......+@@@@@-..@@-:@@..@@@......@@@@......@..%@@@@@@@@@@@@@\r\n@..@@@@-:@@@:...@@@@@.......@@@..%@@..........@@@@@@@@@@@@@@\r\n@@@@.............@@@@...@@+..@@@@@.@....@@:-@@@@.......@@@@@\r\n@@@..@@@@@..@@@...@@@..@@@@@..%@@=..@@@@@@@@@*..@@@@@@@.@@@@\r\n@@@...@@@=..+@@@..@@@@@@@@@@.........@@@@@@@..@@@-...=@@.@@@\r\n@@@@.......@@@@@@@.:.%@@@@@@@..@@@@:..@@@@..@@@--+###=*@..@@\r\n@@@@@@@@@@@@....+@@@%+.....@@@........@@@.#@@#@@@%####-@@.@@\r\n@@@@@@@@@@@..@@@@@#+#@@@@.....@@@@@@@@@@.@@@#+..#@@%##+=@.*@\r\n@@@@@@@@@@@.@@..=+**#%@..+*.*@@..=.......@@%:.+=..@@%##.@:.@\r\n@@@@@@@@@@@..@@@@@@@@@..=*##..@@%@@@@@+.+@@..*++=..-##%-@@.@\r\n@@@@@@@@@@@@*........:@%.:=-..-@@@%%%@@@@...@@%+:@@#=+@@@@.@\r\n@@@@@@@@@@@@#..%@%#@@@@@@..=...=@%%%%%@@@.+:...:@@@@@@.....@\r\n@@@@@@@@@@@@@@..=%+.=@@...@#+@@@@%%%%%@..@........=@@.-#@#.=\r\n@@@@@@@@@@@@@@@@..-+...@@...@@%%%%%%%%@@.@@@@@@@@@...=#%=.@@\r\n@@@@@@@@@@@@@@..@......@.@@.@@@@@%%%%%@@.#@@@@@%@@@...:-.%@@\r\n@@@@@@@@@@@@@%.@@@@@@@==@@@.@@%@@@%%@%@@...@@@@@%@@@#.....@@\r\n@@@@@@@@@@@@@.+@@@@@@#.=.........@@@@@@.@@@-.#@@@@@@@@@@@.@@\r\n@@@@@@@@@@@@@.@@@@@@@..%@@@@@@@@........=........#@@@@@@@.#@\r\n@@@@@@@@@@@@@....@@@@-@@......@@@@@@@@@@@@@@@@@...@#....@=.@\r\n@@@@@@@@@@@@@@@@...@............@@@@@+........@@@..@@@@@@@.@\r\n@@@@@@@@@@@@@@@.@@@..@.........@@@@@@..........@@=.@..@@@@.@\r\n@@@@@@@@@@@@@@.%@@+.@@@@@@@@@@@.....@@@#=......@..@@@.:@@@.@\r\n@@@@@@@@@@@@@@..@@@.-@.....@@@@..@#.+@@@@@@@@@+.@@@@@-=@@..@\r\n@@@@@@@@@@@@@@@@..@@@.@@@@@..@@@@@@@@@#%@@@@@@.-@@@-.+@..-@@\r\n@@@@@@@@@@@@@@@@..%..@@@@@@@:...............*+..=@@....@@@@@\r\n@@@@@@@@@@@@@@@@@...@...@@@@..#=....#@%..@@%..@+....@@#...@@\r\n@@@@@@@@@@@@@@@@.#@@..+@@=.#@+..@@@%:...@#=@@@@@@*@@@@@@@@.@\r\n@@@@@@@@@@@@@@@.@@@@@@*...-@#@...@@...@@@@@@@@@@@%.@%%%%@@.@\r\n@@@@@@@@@@@@@@@..+@@@@@@@.@@@@@@@@@@@@@@@@@@@@@...=@@%%%@..+\r\n@@@@@@@@@@@@@@@@@..+===+#..@@@@..*++#=.@@@@@@@@@@@..-===#+..");
+            ScoreRanking();
             var inputKey = Console.ReadKey();
             if(inputKey.Key == ConsoleKey.Enter)
             {
@@ -107,7 +127,43 @@ namespace Sketch
             {
                 Console.ResetColor();
                 Console.Clear();
-                return;
+                Environment.Exit(0);
+            }
+        }
+
+        public void ScoreRanking()
+        {
+            ScoreList = new int[10];
+            printPos.X = 62;
+            printPos.Y = 0;
+
+            for (int i = 0; i < ScoreList.Length; i++) 
+            {
+                if (ScoreList[i] == 0)
+                {
+                    ScoreList[i] = screenInfo.Score;
+                }
+
+                for (int j = 1; j < ScoreList.Length; j++)
+                {
+                    if (ScoreList[j - 1] < ScoreList[j])
+                    {
+                        int temp = ScoreList[j];
+                        ScoreList[j] = ScoreList[j - 1];
+                        ScoreList[j - 1] = temp;
+                    }
+                }
+                
+            }
+            Console.SetCursorPosition(printPos.X, 0);
+            Console.Write("  [점수 랭킹]");
+            Console.SetCursorPosition(printPos.X, 1);
+            Console.Write("---------------");
+
+            for (int i = 0; i < ScoreList.Length; i++)
+            {
+                Console.SetCursorPosition(printPos.X, i + 2);
+                Console.Write($" [{i + 1}등] : {ScoreList[i]}");
             }
         }
     }
