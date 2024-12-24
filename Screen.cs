@@ -72,7 +72,7 @@ class Screen
         if (gameInfo.GameIsPlaying == true)
         {            
             Console.WindowHeight = 35;
-            Console.WindowWidth = 60;
+            Console.WindowWidth = 52;
             StringBuilder stringBuilder = new StringBuilder(Width * Height);
             for (int i = Height - 1; i >= 0; i--)
             {
@@ -92,6 +92,7 @@ class Screen
                     stringBuilder.AppendLine();
                 }
             }
+            stringBuilder.AppendLine($"\n\n\t\t[점수] : {Score}");
             Console.SetCursorPosition(0, 0);
             Console.WriteLine(stringBuilder);
         }
