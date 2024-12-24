@@ -27,12 +27,12 @@ namespace Sketch
             Player player = new Player();
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
+            screen.Playernfo(player);
+            player.GameInfo(game);
+            screen.GameInfo(game);
 
-            while (true)
+            while (game.KeepPlaying)
             {
-                screen.Playernfo(player);
-                player.GameInfo(game);
-                screen.GameManager(game);
                 game.GameTitle();
                 screen.SetWall();
 

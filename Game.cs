@@ -45,12 +45,18 @@ namespace Sketch
                 Console.WindowWidth = 60;
                 Console.WriteLine("게임을 시작하시겠습니까?");
                 Console.WriteLine("시작을 원하시면 Enter를 입력해주세요");
+                Console.WriteLine("종료을 원하시면 ESC를 입력해주세요");
 
                 var inputKey = Console.ReadKey(true);
 
                 if(inputKey.Key == ConsoleKey.Enter)
                 {
                     GameIsPlaying = true;
+                    break;
+                }
+                else if (inputKey.Key == ConsoleKey.Escape)
+                {
+                    KeepPlaying = false;
                     break;
                 }
             }            

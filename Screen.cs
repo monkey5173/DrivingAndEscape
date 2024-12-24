@@ -41,7 +41,7 @@ class Screen
         car = player;
     }
 
-    public void GameManager(Game game)
+    public void GameInfo(Game game)
     {
         gameInfo = game;
     }
