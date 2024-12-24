@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Sketch
 {
+           
     class Player
     {
         int _position;
         int _velocity;
         Game gameInfo;
-
 
         public int Position
         {

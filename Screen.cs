@@ -14,17 +14,61 @@ class Screen
     int _score;
     int _beforeRoadUpdate;
     int _roadUpdate;
-    char[,] wall;
+    int _positon;
+    char[,] _wall;
+    char[] _dropItems;
     Player car;
     Game gameInfo;
 
-    public int Width { get; set; }
-    public int Height { get; set; }
-    public int RoadWidth { get; set; }
-    public int Score { get; set; }
-    public int BeforeRoadUpdate { get; set; }
-    public int RoadUpdate { get; set; }
-    public char[,] Wall { get; set; }
+    public int Width
+    {
+        get { return _width; }
+        set { _width = value; }
+    }
+
+    public int Height
+    {
+        get { return _height; }
+        set { _height = value; }
+    }
+    public int RoadWidth
+    {
+        get { return _roadWidth; }
+        set { _roadWidth = value; }
+    }
+    public int Score
+    {
+        get { return _score; }
+        set { _score = value; }
+    }
+    public int BeforeRoadUpdate
+    {
+        get { return _beforeRoadUpdate; }
+        set { _beforeRoadUpdate = value; }
+    }
+    public int RoadUpdate
+    {
+        get { return _roadUpdate; }
+        set { _roadUpdate = value; }
+    }
+
+    public int Position
+    {
+        get { return _positon; }
+        set { _positon = value; }
+    }
+
+    public char[,] Wall
+    {
+        get { return _wall; }
+        set { _wall = value; }
+    }
+
+    public char[] DropItems
+    {
+        get { return _dropItems; }
+        set { _dropItems = value; }
+    }
 
     public Screen()
     {
@@ -34,6 +78,8 @@ class Screen
         Score = 0;
         BeforeRoadUpdate = 0;
         RoadUpdate = 0;
+        Position = 0;
+        DropItems = new char[3];
     }
 
     public void Playernfo(Player player)
@@ -50,7 +96,7 @@ class Screen
     {
         if (gameInfo.GameIsPlaying == true)
         {
-            wall = new char[Height, Width];
+            Wall = new char[Height, Width];
             int LeftEdge = (Width - RoadWidth) / 2;
             int RightEdge = LeftEdge + RoadWidth;
             car.Position = Width / 2;
@@ -61,7 +107,7 @@ class Screen
                 for (int j = 0; j < Width; j++)
                 {
                     // 삼항 연산자를 이용해서 벽과 길 만듬(이게 훨 편하네?)              
-                    wall[i, j] = (j < LeftEdge || j > RightEdge) ? '.' : ' ';
+                    Wall[i, j] = (j < LeftEdge || j > RightEdge) ? '.' : ' ';
                 }
             }
         }
@@ -84,7 +130,7 @@ class Screen
                     }
                     else
                     {
-                        stringBuilder.Append(wall[i, j]);
+                        stringBuilder.Append(Wall[i, j]);
                     }
                 }
                 if (i > 0)
@@ -109,7 +155,7 @@ class Screen
             {
                 for (int j = 0; j < Width; j++)
                 {
-                    wall[i, j] = wall[i + 1, j];
+                    Wall[i, j] = Wall[i + 1, j];
                 }
             }
 
@@ -121,9 +167,9 @@ class Screen
 
             //도로가 화면 끝을 나가지 않도록 조정해야 함
 
-            if (RoadUpdate is -1 && wall[Height - 1, 0] == ' ') RoadUpdate = 1;
+            if (RoadUpdate is -1 && Wall[Height - 1, 0] == ' ') RoadUpdate = 1;
             //도로가 왼쪽으로 움직이면서 끝값이 공백이면 즉 도로면 도로를 오른쪽으로 이동하게 설정
-            if (RoadUpdate is 1 && wall[Height - 1, Width - 1] == ' ') RoadUpdate = -1;
+            if (RoadUpdate is 1 && Wall[Height - 1, Width - 1] == ' ') RoadUpdate = -1;
             //도로가 오른쪽으로 움직이면서 끝값이 공백이면 즉 도로면 도로를 왼쪽으로 이동
 
             switch (RoadUpdate)
@@ -131,30 +177,49 @@ class Screen
                 case -1: // 도로가 왼쪽으로 이동 시
                     for (int i = 0; i < Width - 1; i++)
                     {
-                        wall[Height - 1, i] = wall[Height - 1, i + 1];
+                        Wall[Height - 1, i] = Wall[Height - 1, i + 1];
                         // 벽 배열에 width(X) 축에 + 1 즉, 한칸 오른쪽 값을 대입
                         // 이렇게 대입하면 한칸 오른쪽 값이 그 전 값에 계속 대입되면서 마치 도로가 왼쪽으로 이동하게끔 만들 수 있음
                     }
-                    wall[Height - 1, Width - 1] = '.'; // 오른쪽 끝은 벽처리
+                    Wall[Height - 1, Width - 1] = '.'; // 오른쪽 끝은 벽처리
                     break;
                 case 1: // 도로가 오른쪽으로 이동 시
                     for (int i = Width - 1; i > 0; i--)
                     {
-                        wall[Height - 1, i] = wall[Height - 1, i - 1]; //위와 반대로 오른쪽으로 이동하게 보임
+                        Wall[Height - 1, i] = Wall[Height - 1, i - 1]; //위와 반대로 오른쪽으로 이동하게 보임
                     }
-                    wall[Height - 1, 0] = '.'; // 왼쪽 끝은 벽 처리
+                    Wall[Height - 1, 0] = '.'; // 왼쪽 끝은 벽 처리
                     break;
             }
             BeforeRoadUpdate = RoadUpdate; // 전 로드 상황에 현재 로드의 상황을 대입한다.
             car.Position += car.Velocity; // 포지션 값을 속도(방향)에 대입한다.
-                                          // 
-            if (car.Position < 0 || car.Position >= Width || wall[1, car.Position] != ' ')
+
+            //충돌 감지 기능
+            if (car.Position < 0 || car.Position >= Width || Wall[1, car.Position] != ' ')
             {
                 gameInfo.GameOver();
                 return;
             }
             Score++;
         }
-    }   
+    }
+        
+    public void RandomDropItems()
+    {
+        DropItems[0] = '★';
+        DropItems[1] = '●';
+        DropItems[2] = '♥';
+
+        Random itemDrop = new Random();
+
+        if (gameInfo.GameIsPlaying)
+        {
+            
+
+            Console.SetCursorPosition(itemDrop.Next(0, Width + 1), 0);
+            Console.WriteLine($"{itemDrop.Next(0,3)}");
+            
+        }
+    }
 }
 
