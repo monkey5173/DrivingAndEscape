@@ -24,19 +24,23 @@ namespace Sketch
 
             Screen screen = new Screen();
             Game game = new Game();
+            Player player = new Player();
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
             while (true)
             {
+                screen.Playernfo(player);
+                screen.GameManager(game);
                 screen.SetWall();
 
-                while (true)
+                while (game.GameIsPlaying)
                 {
-                    screen.HandleOperate();
+                    player.HandleOperate();
                     screen.Update(stopwatch);
                     screen.Rendering();
                     Thread.Sleep(TimeSpan.FromMilliseconds(33));
+                    
                 }
                 
             }

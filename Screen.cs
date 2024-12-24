@@ -14,9 +14,9 @@ class Screen
     int _score;
     int _beforeRoadUpdate;
     int _roadUpdate;
-    Char[,] wall;
-    Player Car;
-    Game game;
+    char[,] wall;
+    Player car;
+    Game gameInfo;
 
     public int Width { get; set; }
     public int Height { get; set; }
@@ -24,6 +24,7 @@ class Screen
     public int Score { get; set; }
     public int BeforeRoadUpdate { get; set; }
     public int RoadUpdate { get; set; }
+    public char[,] Wall { get; set; }
 
     public Screen()
     {
@@ -33,18 +34,26 @@ class Screen
         Score = 0;
         BeforeRoadUpdate = 0;
         RoadUpdate = 0;
-        Car = new Player();
-        game = new Game();
+    }
+
+    public void Playernfo(Player player)
+    {
+        car = player;
+    }
+
+    public void GameManager(Game game)
+    {
+        gameInfo = game;
     }
 
     public void SetWall()
     {        
         wall = new char[Height, Width];
-        game.GameIsPlaying = true;
+        gameInfo.GameIsPlaying = true;
         int LeftEdge = (Width - RoadWidth) / 2;
         int RightEdge = LeftEdge + RoadWidth;
-        Car.Position = Width / 2;
-        Car.Velocity = 0;
+        car.Position = Width / 2;
+        car.Velocity = 0;
 
         for(int i = 0; i < Height; i++)
         {
@@ -65,9 +74,9 @@ class Screen
         {
             for(int j = 0; j < Width; j++)
             {
-                if(i == 1 && j == Car.Position)
+                if(i == 1 && j == car.Position)
                 {
-                    stringBuilder.Append(!game.GameIsPlaying? 'X' : Car.Velocity < 0 ? '<' : Car.Velocity > 0 ? '>' : '^');
+                    stringBuilder.Append(!gameInfo.GameIsPlaying? 'X' : car.Velocity < 0 ? '<' : car.Velocity > 0 ? '>' : '^');
                 }
                 else
                 {
@@ -102,8 +111,6 @@ class Screen
             stopwatch.Restart();
         }
 
-
-
         //도로가 화면 끝을 나가지 않도록 조정해야 함
 
         if (RoadUpdate is -1 && wall[Height - 1, 0] == ' ') RoadUpdate = 1;
@@ -131,37 +138,13 @@ class Screen
                 break;
         }
         BeforeRoadUpdate = RoadUpdate; // 전 로드 상황에 현재 로드의 상황을 대입한다.
-        Car.Position += Car.Velocity; // 포지션 값을 속도(방향)에 대입한다. 
-
-        //충돌 감지 기능을 넣어야 할듯?
-        if (Car.Position < 0 || Car.Position >= Width || wall[1, Car.Position] != ' ')
+        car.Position += car.Velocity; // 포지션 값을 속도(방향)에 대입한다.
+                                      // 
+        if (car.Position < 0 || car.Position >= Width || wall[1, car.Position] != ' ')
         {
-            game.GameIsPlaying = false;
+            gameInfo.GameOver();
         }
         Score++;
-    }
-
-    public void HandleOperate()
-    {
-        while (Console.KeyAvailable)
-        {
-            var inputkey = Console.ReadKey(true);
-
-            if (inputkey.Key == ConsoleKey.A || inputkey.Key == ConsoleKey.LeftArrow)
-            {
-                Car.Velocity = -1;
-            }
-            else if (inputkey.Key == ConsoleKey.D || inputkey.Key == ConsoleKey.RightArrow)
-            {
-                Car.Velocity = +1;
-            }
-            else if (inputkey.Key == ConsoleKey.S || inputkey.Key == ConsoleKey.DownArrow)
-            {
-                Car.Velocity = 0;
-            }
-        }
-    }
-
-    
+    }    
 }
 
