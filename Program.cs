@@ -30,6 +30,7 @@ namespace Sketch
             screen.Playernfo(player);
             player.GameInfo(game);
             screen.GameInfo(game);
+            game.PSInfo(player, screen);
 
             while (game.KeepPlaying)
             {

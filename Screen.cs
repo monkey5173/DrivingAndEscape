@@ -70,7 +70,7 @@ class Screen
     public void Rendering()
     {
         if (gameInfo.GameIsPlaying == true)
-        {
+        {            
             Console.WindowHeight = 35;
             Console.WindowWidth = 60;
             StringBuilder stringBuilder = new StringBuilder(Width * Height);
