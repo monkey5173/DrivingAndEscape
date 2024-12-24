@@ -11,6 +11,7 @@ namespace Sketch
     {
         int _position;
         int _velocity;
+        Game gameInfo;
 
 
         public int Position
@@ -25,23 +26,31 @@ namespace Sketch
             set { _velocity = value; }
         }
 
+        public void GameInfo(Game game)
+        {
+            gameInfo = game;
+        }
+
         public void HandleOperate()
         {
-            while (Console.KeyAvailable)
+            if (gameInfo.GameIsPlaying == true)
             {
-                var inputkey = Console.ReadKey(true);
+                while (Console.KeyAvailable)
+                {
+                    var inputkey = Console.ReadKey(true);
 
-                if (inputkey.Key == ConsoleKey.A || inputkey.Key == ConsoleKey.LeftArrow)
-                {
-                    Velocity = -1;
-                }
-                else if (inputkey.Key == ConsoleKey.D || inputkey.Key == ConsoleKey.RightArrow)
-                {
-                    Velocity = +1;
-                }
-                else if (inputkey.Key == ConsoleKey.S || inputkey.Key == ConsoleKey.DownArrow)
-                {
-                    Velocity = 0;
+                    if (inputkey.Key == ConsoleKey.A || inputkey.Key == ConsoleKey.LeftArrow)
+                    {
+                        Velocity = -1;
+                    }
+                    else if (inputkey.Key == ConsoleKey.D || inputkey.Key == ConsoleKey.RightArrow)
+                    {
+                        Velocity = +1;
+                    }
+                    else if (inputkey.Key == ConsoleKey.S || inputkey.Key == ConsoleKey.DownArrow)
+                    {
+                        Velocity = 0;
+                    }
                 }
             }
         }

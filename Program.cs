@@ -31,7 +31,9 @@ namespace Sketch
             while (true)
             {
                 screen.Playernfo(player);
+                player.GameInfo(game);
                 screen.GameManager(game);
+                game.GameTitle();
                 screen.SetWall();
 
                 while (game.GameIsPlaying)
