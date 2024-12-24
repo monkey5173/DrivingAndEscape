@@ -23,12 +23,12 @@ namespace Sketch
             Console.CursorVisible = false;
 
             Screen screen = new Screen();
+            Game game = new Game();
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
             while (true)
             {
-                screen.ConsoleSizeSet();
                 screen.SetWall();
 
                 while (true)

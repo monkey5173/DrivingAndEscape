@@ -50,7 +50,7 @@ class Screen
         {
             for(int j = 0; j < Width; j++)
             {
-                // 삼항 연산자를 이용해서 벽과 길 만듬(이게 훨 편하네?)
+                // 삼항 연산자를 이용해서 벽과 길 만듬(이게 훨 편하네?)              
                 wall[i, j] = (j < LeftEdge || j > RightEdge) ? '.' : ' ';                
             }
         }
@@ -58,6 +58,8 @@ class Screen
     
     public void Rendering()
     {
+        Console.WindowHeight = 35;
+        Console.WindowWidth = 60;
         StringBuilder stringBuilder = new StringBuilder(Width * Height);
         for(int i = Height - 1; i >= 0; i--)
         {
@@ -65,7 +67,7 @@ class Screen
             {
                 if(i == 1 && j == Car.Position)
                 {
-                    stringBuilder.Append(!game.GameIsPlaying? 'X' : Car.Velocity < 0 ? '◀' : Car.Velocity > 0 ? '▶' : '▲' );
+                    stringBuilder.Append(!game.GameIsPlaying? 'X' : Car.Velocity < 0 ? '<' : Car.Velocity > 0 ? '>' : '^');
                 }
                 else
                 {
@@ -160,10 +162,6 @@ class Screen
         }
     }
 
-    public void ConsoleSizeSet()
-    {
-        Console.WindowHeight = 35;
-        Console.WindowWidth = 60;
-    }
+    
 }
 
