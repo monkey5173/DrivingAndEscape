@@ -48,6 +48,7 @@ namespace Sketch
             KeepPlaying = true;
             GameIsPlaying = false;
             printPos = new Vector2();
+            ScoreList = new int[20];
         }
 
         public void PSInfo(Player player, Screen screen)
@@ -107,7 +108,7 @@ namespace Sketch
             Console.WindowWidth = 80;
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.Black;
-            Console.WriteLine("!!!!!!!!!!!!!!!!!!!!!!!!< GAME OVER >!!!!!!!!!!!!!!!!!!!!!!!!!");
+            Console.WriteLine("\t\t\t< GAME OVER >");
             Console.WriteLine("-------------------------------------------------------------");
             Console.WriteLine($"\t\t   [획득 점수] : {screenInfo.Score}");
             Console.WriteLine("-------------------------------------------------------------");
@@ -132,8 +133,7 @@ namespace Sketch
         }
 
         public void ScoreRanking()
-        {
-            ScoreList = new int[10];
+        {            
             printPos.X = 62;
             printPos.Y = 0;
 
@@ -142,8 +142,12 @@ namespace Sketch
                 if (ScoreList[i] == 0)
                 {
                     ScoreList[i] = screenInfo.Score;
-                }
+                    break;
+                }                        
+            }
 
+            for (int i = 0; i < ScoreList.Length; i++)
+            {
                 for (int j = 1; j < ScoreList.Length; j++)
                 {
                     if (ScoreList[j - 1] < ScoreList[j])
@@ -153,16 +157,23 @@ namespace Sketch
                         ScoreList[j - 1] = temp;
                     }
                 }
-                
             }
+
             Console.SetCursorPosition(printPos.X, 0);
             Console.Write("  [점수 랭킹]");
             Console.SetCursorPosition(printPos.X, 1);
             Console.Write("---------------");
 
-            for (int i = 0; i < ScoreList.Length; i++)
+            for (int i = 0; i < ScoreList.Length / 2; i++)
             {
-                Console.SetCursorPosition(printPos.X, i + 2);
+                Console.SetCursorPosition(printPos.X, i + 2);                                                
+                Console.Write($" [{i + 1}등] : {ScoreList[i]}");                
+            }
+            Console.SetCursorPosition(printPos.X, 12);
+            Console.Write("---------------");
+            for (int i = 10; i < ScoreList.Length; i++)
+            {
+                Console.SetCursorPosition(printPos.X, i + 3);
                 Console.Write($" [{i + 1}등] : {ScoreList[i]}");
             }
         }
