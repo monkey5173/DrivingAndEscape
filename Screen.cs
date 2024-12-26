@@ -109,28 +109,38 @@ class Screen
         {
             Console.WindowHeight = 35;
             Console.WindowWidth = 52;
-            StringBuilder stringBuilder = new StringBuilder(Width * Height);
-            for (int i = Height - 1; i >= 0; i--)
+            Console.SetCursorPosition(0, 0);
+
+            for (int i = 0; i < Height; i++)
             {
-                for (int j = 0; j < Width; j++)
+                for(int j = 0; j < Width; j++)
                 {
-                    if (i == 1 && j == car.Position)
+                    if(i == 28 && j == car.Position)
                     {
-                        stringBuilder.Append(!gameInfo.GameIsPlaying ? 'X' : car.Velocity < 0 ? '<' : car.Velocity > 0 ? '>' : '^');
-                    }                    
+                        if (car.Velocity < 0)
+                        {
+                            Console.Write(car.Shape[0]);
+                        }
+                        else if (car.Velocity > 0)
+                        {
+                            Console.Write(car.Shape[1]);
+                        }
+                        else
+                        {
+                            Console.Write(car.Shape[2]);
+                        }
+                    }
                     else
                     {
-                        stringBuilder.Append(Wall[i, j]);
+                        Console.Write(Wall[i,j]);
                     }
                 }
-                if (i > 0)
+                if(i > 0)
                 {
-                    stringBuilder.AppendLine();
+                    Console.WriteLine();
                 }
             }
-            stringBuilder.AppendLine($"\n\n\t\t[점수] : {Score}");
-            Console.SetCursorPosition(0, 0);
-            Console.WriteLine(stringBuilder);
+            Console.WriteLine($"\n\n\t\t[점수] : {Score} ");
         }
     }
 
@@ -182,7 +192,7 @@ class Screen
                     break;
             }
             BeforeRoadUpdate = RoadUpdate; // 전 로드 상황에 현재 로드의 상황을 대입한다.
-            car.Position += car.Velocity; // 속도(방향) 값을 포지션에 대입한다(포지션을 업데이트 해준다)
+            car.Position += car.Velocity; // 플레이어 포지션에 속도(방향)의 값을 업데이트 해준다.
 
             //충돌 감지 기능
             if (car.Position < 0 || car.Position >= Width || Wall[1, car.Position] != ' ')

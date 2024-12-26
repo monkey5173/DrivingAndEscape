@@ -13,6 +13,7 @@ namespace Sketch
         int _position;
         int _velocity;
         Game gameInfo;
+        char[] _shape;
 
         public int Position
         {
@@ -24,6 +25,17 @@ namespace Sketch
         {
             get { return _velocity; }
             set { _velocity = value; }
+        }
+
+        public char[] Shape
+        {
+            get { return _shape; }
+            set { _shape = value; }
+        }
+
+        public Player()
+        {
+            Shape = new char[3] {'<', '>', '^' };
         }
 
         public void GameInfo(Game game)
