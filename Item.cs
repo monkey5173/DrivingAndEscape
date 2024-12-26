@@ -10,11 +10,32 @@ namespace Sketch
     {
         Vector2 itemPos;
         char[] _itemType;
+        int _velocity;
+        int _posX;
+        int _posY;
 
         public char[] ItemType
         {
             get { return _itemType; }
             set { _itemType = value; }
+        }
+
+        public int Velocity
+        {
+            get { return _velocity; }
+            set { _velocity = value; }
+        }
+
+        public int PosX
+        {
+            get { return _posX; }
+            set { _posX = value; }
+        }
+
+        public int PosY
+        {
+            get { return _posY; }
+            set { _posY = value; }
         }
 
         public Item() 

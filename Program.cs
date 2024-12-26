@@ -28,9 +28,8 @@ namespace Sketch
             Item items = new Item();
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            screen.Playernfo(player);
+            screen.IPSinfo(player, game, items);
             player.GameInfo(game);
-            screen.GameInfo(game);
             game.PSInfo(player, screen);
 
             while (game.KeepPlaying)

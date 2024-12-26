@@ -18,6 +18,7 @@ class Screen
     char[,] _wall;
     Player car;
     Game gameInfo;
+    Item itemInfo;
 
     public int Width
     {
@@ -74,14 +75,11 @@ class Screen
         Position = 0;
     }
 
-    public void Playernfo(Player player)
+    public void IPSinfo(Player player, Game game, Item items)
     {
         car = player;
-    }
-
-    public void GameInfo(Game game)
-    {
         gameInfo = game;
+        itemInfo = items;
     }
 
     public void SetWall()
@@ -108,9 +106,13 @@ class Screen
     public void Rendering()
     {
         if (gameInfo.GameIsPlaying == true)
-        {            
+        {
+            Random randomItem = new Random();
             Console.WindowHeight = 35;
             Console.WindowWidth = 52;
+            itemInfo.PosX = randomItem.Next(0, Width);
+            itemInfo.PosY = Height - 1;
+            var randomDrop = itemInfo.ItemType[randomItem.Next(0, 3)];
             StringBuilder stringBuilder = new StringBuilder(Width * Height);
             for (int i = Height - 1; i >= 0; i--)
             {
@@ -119,6 +121,11 @@ class Screen
                     if (i == 1 && j == car.Position)
                     {
                         stringBuilder.Append(!gameInfo.GameIsPlaying ? 'X' : car.Velocity < 0 ? '<' : car.Velocity > 0 ? '>' : '^');
+                    }
+                    else if (i == itemInfo.PosY && j == itemInfo.PosX)
+                    {
+                        stringBuilder.Append(randomDrop);
+                        itemInfo.PosY--;
                     }
                     else
                     {
