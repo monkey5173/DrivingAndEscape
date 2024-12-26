@@ -53,7 +53,7 @@ namespace Sketch
                         itemGenerator.RemoveAt(i);
                     }
 
-                    else if (itemGenerator[i].PosY == screenInfo.Height - 1 && itemGenerator[i].PosX == playerInfo.Position)
+                    else if (itemGenerator[i].PosY == screenInfo.Height - 2 && itemGenerator[i].PosX == playerInfo.Position)
                     {
                         gameInfo.GameOver();
                         return;
