@@ -114,31 +114,10 @@ class Screen
             for (int i = 0; i < Height; i++)
             {
                 for(int j = 0; j < Width; j++)
-                {
-                    if(i == 28 && j == car.Position)
-                    {
-                        if (car.Velocity < 0)
-                        {
-                            Console.Write(car.Shape[0]);
-                        }
-                        else if (car.Velocity > 0)
-                        {
-                            Console.Write(car.Shape[1]);
-                        }
-                        else
-                        {
-                            Console.Write(car.Shape[2]);
-                        }
-                    }
-                    else
-                    {
-                        Console.Write(Wall[i,j]);
-                    }
+                {                   
+                    Console.Write(Wall[i,j]);                   
                 }
-                if(i > 0)
-                {
-                    Console.WriteLine();
-                }
+                Console.WriteLine();
             }
             Console.WriteLine($"\n\n\t\t[점수] : {Score} ");
         }
@@ -155,7 +134,7 @@ class Screen
             {
                 for (int j = 0; j < Width; j++)
                 {
-                    Wall[i, j] = Wall[i + 1, j];
+                    Wall[i + 1, j] = Wall[i, j];
                 }
             }
 
