@@ -16,7 +16,6 @@ class Screen
     int _roadUpdate;
     int _positon;
     char[,] _wall;
-    char[] _dropItems;
     Player car;
     Game gameInfo;
 
@@ -64,12 +63,6 @@ class Screen
         set { _wall = value; }
     }
 
-    public char[] DropItems
-    {
-        get { return _dropItems; }
-        set { _dropItems = value; }
-    }
-
     public Screen()
     {
         Width = 50; //가로 넓이
@@ -79,7 +72,6 @@ class Screen
         BeforeRoadUpdate = 0;
         RoadUpdate = 0;
         Position = 0;
-        DropItems = new char[3];
     }
 
     public void Playernfo(Player player)
@@ -192,7 +184,7 @@ class Screen
                     break;
             }
             BeforeRoadUpdate = RoadUpdate; // 전 로드 상황에 현재 로드의 상황을 대입한다.
-            car.Position += car.Velocity; // 포지션 값을 속도(방향)에 대입한다.
+            car.Position += car.Velocity; // 속도(방향) 값을 포지션에 대입한다(포지션을 업데이트 해준다)
 
             //충돌 감지 기능
             if (car.Position < 0 || car.Position >= Width || Wall[1, car.Position] != ' ')
@@ -202,24 +194,6 @@ class Screen
             }
             Score++;
         }
-    }
-        
-    public void RandomDropItems()
-    {
-        DropItems[0] = '★';
-        DropItems[1] = '●';
-        DropItems[2] = '♥';
-
-        Random itemDrop = new Random();
-
-        if (gameInfo.GameIsPlaying)
-        {
-            
-
-            Console.SetCursorPosition(itemDrop.Next(0, Width + 1), 0);
-            Console.WriteLine($"{itemDrop.Next(0,3)}");
-            
-        }
-    }
+    }        
 }
 

@@ -25,6 +25,7 @@ namespace Sketch
             Screen screen = new Screen();
             Game game = new Game();
             Player player = new Player();
+            Item items = new Item();
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             screen.Playernfo(player);
