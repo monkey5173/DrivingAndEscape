@@ -30,18 +30,47 @@ namespace Sketch
 
         public void SetItem()
         {
-            if(stopwatch.ElapsedMilliseconds > 3000)
+            if (gameInfo.GameIsPlaying == true)
             {
-                itemGenerator.Add(new Item());
-                stopwatch.Restart();
+                if (stopwatch.ElapsedMilliseconds > 3000)
+                {
+                    itemGenerator.Add(new Item());
+                    stopwatch.Restart();
+                }
+            }
+        }
+
+        public void Update()
+        {
+            if (gameInfo.GameIsPlaying == true)
+            {
+                for (int i = 0; i < itemGenerator.Count; i++)
+                {
+                    itemGenerator[i].Update(gameInfo);
+
+                    if (itemGenerator[i].PosY > screenInfo.Height - 1)
+                    {
+                        itemGenerator.RemoveAt(i);
+                    }
+
+                    else if (itemGenerator[i].PosY == screenInfo.Height - 1 && itemGenerator[i].PosX == playerInfo.Position)
+                    {
+                        gameInfo.GameOver();
+                        return;
+                    }
+                }
+
             }
         }
 
         public void Rendering()
         {
-            for(int i = 0; i < itemGenerator.Count; i++)
+            if (gameInfo.GameIsPlaying == true)
             {
-                itemGenerator[i].Update(screenInfo, gameInfo);
+                for (int i = 0; i < itemGenerator.Count; i++)
+                {
+                    itemGenerator[i].Rendering(screenInfo, gameInfo);
+                }
             }
         }
     }

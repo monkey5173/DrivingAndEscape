@@ -41,7 +41,7 @@ namespace Sketch
 
         public Item() 
         {
-            PosX = random.Next(0, 50);
+            PosX = random.Next(1, 49);
             PosY = 0;
             ItemType = new char[3] {'★', '♥', '■'};
             randItems = ItemType[random.Next(0, ItemType.Length)];
@@ -53,29 +53,24 @@ namespace Sketch
         //기능을 확실히 따로 분리해서 위의 아이템을 업데이트 하는 기능
         //그것을 랜더링(출력) 관리해주는 기능으로 분리시켜야 할 듯?
 
-        public void Update(Screen screen, Game game)
+        public void Update(Game game)
         {
-            if (game.GameIsPlaying)
+            if (game.GameIsPlaying == true)
             {
+                Console.SetCursorPosition(PosX, PosY);
+                PosY++;
+            }
+        }
 
-                for (int i = 0; i < screen.Height; i++)
+        public void Rendering(Screen screen, Game game)
+        {
+            if (game.GameIsPlaying == true)
+            {
+                if(PosY <= screen.Height - 1)
                 {
                     Console.SetCursorPosition(PosX, PosY);
-                    Console.Write(' ');
-
+                    Console.Write(randItems);
                     PosY++;
-
-                    if (PosY < screen.Height - 1)
-                    {
-                        Console.SetCursorPosition(PosX, PosY);
-                        Console.Write(randItems);
-                    }
-                    else
-                    {
-                        Console.SetCursorPosition(PosX, PosY);
-                        Console.Write(' ');
-                        break;
-                    }
                 }
             }
         }

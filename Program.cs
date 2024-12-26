@@ -36,6 +36,7 @@ namespace Sketch
                     player.HandleOperate();
                     screen.Update(stopwatch);
                     itemgenerator.SetItem();
+                    itemgenerator.Update();
 
                     screen.Rendering();
                     itemgenerator.Rendering();
