@@ -42,8 +42,7 @@ namespace Sketch
                     player.HandleOperate();
                     screen.Update(stopwatch);
                     screen.Rendering();
-                    Thread.Sleep(TimeSpan.FromMilliseconds(33));
-                    
+                    Thread.Sleep(TimeSpan.FromMilliseconds(33));                    
                 }
                 
             }
