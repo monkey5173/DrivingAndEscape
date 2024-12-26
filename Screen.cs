@@ -89,8 +89,6 @@ class Screen
             Wall = new char[Height, Width];
             int LeftEdge = (Width - RoadWidth) / 2;
             int RightEdge = LeftEdge + RoadWidth;
-            car.Position = Width / 2;
-            car.Velocity = 0;
 
             for (int i = 0; i < Height; i++)
             {
@@ -148,6 +146,7 @@ class Screen
 
             if (RoadUpdate is -1 && Wall[Height - 1, 0] == ' ') RoadUpdate = 1;
             //도로가 왼쪽으로 움직이면서 끝값이 공백이면 즉 도로면 도로를 오른쪽으로 이동하게 설정
+
             if (RoadUpdate is 1 && Wall[Height - 1, Width - 1] == ' ') RoadUpdate = -1;
             //도로가 오른쪽으로 움직이면서 끝값이 공백이면 즉 도로면 도로를 왼쪽으로 이동
 
@@ -170,15 +169,7 @@ class Screen
                     Wall[Height - 1, 0] = '.'; // 왼쪽 끝은 벽 처리
                     break;
             }
-            BeforeRoadUpdate = RoadUpdate; // 전 로드 상황에 현재 로드의 상황을 대입한다.
-            car.Position += car.Velocity; // 플레이어 포지션에 속도(방향)의 값을 업데이트 해준다.
-
-            //충돌 감지 기능
-            if (car.Position < 0 || car.Position >= Width || Wall[1, car.Position] != ' ')
-            {
-                gameInfo.GameOver();
-                return;
-            }
+            BeforeRoadUpdate = RoadUpdate; // 전 로드 상황에 현재 로드의 상황을 대입한다.           
             Score++;
         }
     }        

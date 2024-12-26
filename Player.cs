@@ -13,6 +13,7 @@ namespace Sketch
         int _position;
         int _velocity;
         Game gameInfo;
+        Screen screenInfo;
         char[] _shape;
 
         public int Position
@@ -38,8 +39,9 @@ namespace Sketch
             Shape = new char[3] {'<', '>', '^' };
         }
 
-        public void GameInfo(Game game)
+        public void SGinfo(Screen screen, Game game)
         {
+            screenInfo = screen;
             gameInfo = game;
         }
 
@@ -64,6 +66,20 @@ namespace Sketch
                         Velocity = 0;
                     }
                 }
+            }
+        }
+
+        public void Update()
+        {
+            Position 
+
+            car.Position += car.Velocity; // 플레이어 포지션에 속도(방향)의 값을 업데이트 해준다.
+
+            //충돌 감지 기능
+            if (car.Position < 0 || car.Position >= Width || Wall[1, car.Position] != ' ')
+            {
+                gameInfo.GameOver();
+                return;
             }
         }
     }

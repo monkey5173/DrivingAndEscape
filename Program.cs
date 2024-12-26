@@ -21,7 +21,7 @@ namespace Sketch
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
             screen.IPSinfo(player, game, items);
-            player.GameInfo(game);
+            player.SGinfo(screen, game);
             game.PSInfo(player, screen);
             ItemGen itemgenerator = new ItemGen();
             itemgenerator.PsgInfo(player, screen, game);
