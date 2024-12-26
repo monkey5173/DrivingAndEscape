@@ -11,41 +11,38 @@ namespace Sketch
     internal class Program
     {
         static void Main(string[] args)
-        {
-            //Console.WindowHeight = 30;
-            //Console.WindowWidth = 60;
-            //Console.WindowHeight = 40;
-            //Console.WindowWidth = 80;
-            //Console.ForegroundColor = ConsoleColor.White;
-            //Console.BackgroundColor = ConsoleColor.Black;
-            //Console.WriteLine("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\n@@@+..@@@@@@@@@@@@@@@:.....#@...+@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\n@@@@......%@...@@%......@@@@@#...@@@@@@@@@@@@..@@@@@@@@@@@@@\r\n@......+@@@@@-..@@-:@@..@@@......@@@@......@..%@@@@@@@@@@@@@\r\n@..@@@@-:@@@:...@@@@@.......@@@..%@@..........@@@@@@@@@@@@@@\r\n@@@@.............@@@@...@@+..@@@@@.@....@@:-@@@@.......@@@@@\r\n@@@..@@@@@..@@@...@@@..@@@@@..%@@=..@@@@@@@@@*..@@@@@@@.@@@@\r\n@@@...@@@=..+@@@..@@@@@@@@@@.........@@@@@@@..@@@-...=@@.@@@\r\n@@@@.......@@@@@@@.:.%@@@@@@@..@@@@:..@@@@..@@@--+###=*@..@@\r\n@@@@@@@@@@@@....+@@@%+.....@@@........@@@.#@@#@@@%####-@@.@@\r\n@@@@@@@@@@@..@@@@@#+#@@@@.....@@@@@@@@@@.@@@#+..#@@%##+=@.*@\r\n@@@@@@@@@@@.@@..=+**#%@..+*.*@@..=.......@@%:.+=..@@%##.@:.@\r\n@@@@@@@@@@@..@@@@@@@@@..=*##..@@%@@@@@+.+@@..*++=..-##%-@@.@\r\n@@@@@@@@@@@@*........:@%.:=-..-@@@%%%@@@@...@@%+:@@#=+@@@@.@\r\n@@@@@@@@@@@@#..%@%#@@@@@@..=...=@%%%%%@@@.+:...:@@@@@@.....@\r\n@@@@@@@@@@@@@@..=%+.=@@...@#+@@@@%%%%%@..@........=@@.-#@#.=\r\n@@@@@@@@@@@@@@@@..-+...@@...@@%%%%%%%%@@.@@@@@@@@@...=#%=.@@\r\n@@@@@@@@@@@@@@..@......@.@@.@@@@@%%%%%@@.#@@@@@%@@@...:-.%@@\r\n@@@@@@@@@@@@@%.@@@@@@@==@@@.@@%@@@%%@%@@...@@@@@%@@@#.....@@\r\n@@@@@@@@@@@@@.+@@@@@@#.=.........@@@@@@.@@@-.#@@@@@@@@@@@.@@\r\n@@@@@@@@@@@@@.@@@@@@@..%@@@@@@@@........=........#@@@@@@@.#@\r\n@@@@@@@@@@@@@....@@@@-@@......@@@@@@@@@@@@@@@@@...@#....@=.@\r\n@@@@@@@@@@@@@@@@...@............@@@@@+........@@@..@@@@@@@.@\r\n@@@@@@@@@@@@@@@.@@@..@.........@@@@@@..........@@=.@..@@@@.@\r\n@@@@@@@@@@@@@@.%@@+.@@@@@@@@@@@.....@@@#=......@..@@@.:@@@.@\r\n@@@@@@@@@@@@@@..@@@.-@.....@@@@..@#.+@@@@@@@@@+.@@@@@-=@@..@\r\n@@@@@@@@@@@@@@@@..@@@.@@@@@..@@@@@@@@@#%@@@@@@.-@@@-.+@..-@@\r\n@@@@@@@@@@@@@@@@..%..@@@@@@@:...............*+..=@@....@@@@@\r\n@@@@@@@@@@@@@@@@@...@...@@@@..#=....#@%..@@%..@+....@@#...@@\r\n@@@@@@@@@@@@@@@@.#@@..+@@=.#@+..@@@%:...@#=@@@@@@*@@@@@@@@.@\r\n@@@@@@@@@@@@@@@.@@@@@@*...-@#@...@@...@@@@@@@@@@@%.@%%%%@@.@\r\n@@@@@@@@@@@@@@@..+@@@@@@@.@@@@@@@@@@@@@@@@@@@@@...=@@%%%@..+\r\n@@@@@@@@@@@@@@@@@..+===+#..@@@@..*++#=.@@@@@@@@@@@..-===#+..");
+        {   
+            ItemGen itemGen = new ItemGen();
+            itemGen.SetItem();
+            Console.WriteLine(itemGen);
 
-            Console.CursorVisible = false;
+            //Console.CursorVisible = false;
 
-            Screen screen = new Screen();
-            Game game = new Game();
-            Player player = new Player();
-            Item items = new Item();
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
-            screen.IPSinfo(player, game, items);
-            player.GameInfo(game);
-            game.PSInfo(player, screen);
+            //Screen screen = new Screen();
+            //Game game = new Game();
+            //Player player = new Player();
+            //Item items = new Item();
+            //Stopwatch stopwatch = new Stopwatch();
+            //stopwatch.Start();
+            //screen.IPSinfo(player, game, items);
+            //player.GameInfo(game);
+            //game.PSInfo(player, screen);
 
-            while (game.KeepPlaying)
-            {
-                game.GameTitle();
-                screen.SetWall();
+            //while (game.KeepPlaying)
+            //{
+            //    game.GameTitle();
+            //    screen.SetWall();
 
-                while (game.GameIsPlaying)
-                {
-                    player.HandleOperate();
-                    screen.Update(stopwatch);
-                    screen.Rendering();
-                    Thread.Sleep(TimeSpan.FromMilliseconds(33));                    
-                }
+            //    while (game.GameIsPlaying)
+            //    {
+            //        player.HandleOperate();
+            //        screen.Update(stopwatch);
+
+            //        screen.Rendering();
+            //        Thread.Sleep(TimeSpan.FromMilliseconds(33));                    
+            //    }
                 
-            }
+            //}
         }
     }
 }

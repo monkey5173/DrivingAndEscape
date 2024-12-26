@@ -107,12 +107,8 @@ class Screen
     {
         if (gameInfo.GameIsPlaying == true)
         {
-            Random randomItem = new Random();
             Console.WindowHeight = 35;
             Console.WindowWidth = 52;
-            itemInfo.PosX = randomItem.Next(0, Width);
-            itemInfo.PosY = Height - 1;
-            var randomDrop = itemInfo.ItemType[randomItem.Next(0, 3)];
             StringBuilder stringBuilder = new StringBuilder(Width * Height);
             for (int i = Height - 1; i >= 0; i--)
             {
@@ -121,12 +117,7 @@ class Screen
                     if (i == 1 && j == car.Position)
                     {
                         stringBuilder.Append(!gameInfo.GameIsPlaying ? 'X' : car.Velocity < 0 ? '<' : car.Velocity > 0 ? '>' : '^');
-                    }
-                    else if (i == itemInfo.PosY && j == itemInfo.PosX)
-                    {
-                        stringBuilder.Append(randomDrop);
-                        itemInfo.PosY--;
-                    }
+                    }                    
                     else
                     {
                         stringBuilder.Append(Wall[i, j]);
