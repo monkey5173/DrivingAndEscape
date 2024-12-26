@@ -12,6 +12,7 @@ namespace Sketch
         int _velocity;
         int _posX;
         int _posY;
+        char randItems;
         Random random = new Random();
 
         public char[] ItemType
@@ -43,6 +44,7 @@ namespace Sketch
             PosX = random.Next(0, 50);
             PosY = 0;
             ItemType = new char[3] {'★', '♥', '■'};
+            randItems = ItemType[random.Next(0, ItemType.Length)];
         }
 
         //일정 주기마다 아이템을 뉴할당 받음
@@ -50,6 +52,33 @@ namespace Sketch
         //그상태에서 해당 아이템의 y좌표만 증가or감소 시키기 즉. 내려가게 끔
         //기능을 확실히 따로 분리해서 위의 아이템을 업데이트 하는 기능
         //그것을 랜더링(출력) 관리해주는 기능으로 분리시켜야 할 듯?
+
+        public void Update(Screen screen, Game game)
+        {
+            if (game.GameIsPlaying)
+            {
+
+                for (int i = 0; i < screen.Height; i++)
+                {
+                    Console.SetCursorPosition(PosX, PosY);
+                    Console.Write(' ');
+
+                    PosY++;
+
+                    if (PosY < screen.Height - 1)
+                    {
+                        Console.SetCursorPosition(PosX, PosY);
+                        Console.Write(randItems);
+                    }
+                    else
+                    {
+                        Console.SetCursorPosition(PosX, PosY);
+                        Console.Write(' ');
+                        break;
+                    }
+                }
+            }
+        }
 
 
         //public void DropItems(Player player, Screen screen, Game game)

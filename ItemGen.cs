@@ -10,26 +10,39 @@ namespace Sketch
     class ItemGen
     {
         List<Item> itemGenerator;
+        Player playerInfo;
+        Screen screenInfo;
+        Game gameInfo;
         Stopwatch stopwatch = new Stopwatch();
 
         public ItemGen()
         {
             itemGenerator = new List<Item>();
+            stopwatch.Start();
+        }
+
+        public void PsgInfo(Player player, Screen screen, Game game)
+        {
+            playerInfo = player;
+            screenInfo = screen;
+            gameInfo = game;
         }
 
         public void SetItem()
         {
-            stopwatch.Start();
             if(stopwatch.ElapsedMilliseconds > 3000)
             {
                 itemGenerator.Add(new Item());
+                stopwatch.Restart();
             }
-            stopwatch.Reset();
         }
 
         public void Rendering()
         {
-            
+            for(int i = 0; i < itemGenerator.Count; i++)
+            {
+                itemGenerator[i].Update(screenInfo, gameInfo);
+            }
         }
     }
 }
