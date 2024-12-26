@@ -111,7 +111,7 @@ class Screen
             Console.WindowWidth = 52;
             Console.SetCursorPosition(0, 0);
 
-            for (int i = 0; i < Height; i++)
+            for (int i = Height - 1; i >= 0; i--)
             {
                 for(int j = 0; j < Width; j++)
                 {                   
@@ -134,7 +134,7 @@ class Screen
             {
                 for (int j = 0; j < Width; j++)
                 {
-                    Wall[i + 1, j] = Wall[i, j];
+                    Wall[i, j] = Wall[i + 1, j];
                 }
             }
 
