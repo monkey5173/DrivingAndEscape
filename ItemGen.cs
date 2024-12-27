@@ -32,7 +32,7 @@ namespace Sketch
         {
             if (gameInfo.GameIsPlaying == true)
             {
-                if (stopwatch.ElapsedMilliseconds > 800)
+                if (stopwatch.ElapsedMilliseconds > 500)
                 {
                     itemGenerator.Add(new Item());
                     stopwatch.Restart();
@@ -56,7 +56,6 @@ namespace Sketch
                     else if (itemGenerator[i].PosY == playerInfo.PosY && itemGenerator[i].PosX == playerInfo.PosX)
                     {
                         gameInfo.GameOver();
-                        return;
                     }
                 }
 

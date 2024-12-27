@@ -43,7 +43,7 @@ namespace Sketch
         {
             PosX = random.Next(1, 49);
             PosY = 0;
-            ItemType = new char[3] {'a', 'b', 'c'};
+            ItemType = new char[3] {'0', 'D', 'Q'};
             randItems = ItemType[random.Next(0, ItemType.Length)];
         }
 
@@ -57,7 +57,6 @@ namespace Sketch
         {
             if (game.GameIsPlaying == true)
             {
-                Console.SetCursorPosition(PosX, PosY);
                 PosY++;
             }
         }
@@ -73,39 +72,6 @@ namespace Sketch
                     PosY++;
                 }
             }
-        }
-
-
-        //public void DropItems(Player player, Screen screen, Game game)
-        //{
-        //    Random posRandom = new Random();
-        //    itemPos.X = posRandom.Next(0, screen.Width);
-        //    int randomType = posRandom.Next(0, 3);
-
-        //    if (game.GameIsPlaying)
-        //    {
-        //        for (int i = 0; i < screen.Height; i++)
-        //        {
-        //            Console.SetCursorPosition(itemPos.X, itemPos.Y);
-        //            Console.Write(' ');
-
-        //            itemPos.Y++;
-
-        //            if(itemPos.Y < screen.Height - 1)
-        //            {
-        //                Console.SetCursorPosition(itemPos.X, itemPos.Y);
-        //                Console.Write(ItemType[randomType]);
-        //            }
-        //            else
-        //            {
-        //                Console.SetCursorPosition(itemPos.X, itemPos.Y);
-        //                Console.Write(' ');
-        //                break;
-        //            }
-        //        }
-                    
-
-        //    }
-        //}
+        }       
     }
 }

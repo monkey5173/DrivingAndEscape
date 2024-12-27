@@ -16,7 +16,6 @@ namespace Sketch
         Game gameInfo;
         Screen screenInfo;
         char[] _shape;
-        char _seletShape;
 
         public int PosX
         {
@@ -42,12 +41,6 @@ namespace Sketch
             set { _shape = value; }
         }
 
-        public char SeletShape
-        {
-            get { return _seletShape; }
-            set { _seletShape = value; }
-        }
-
         public Player()
         {
             Shape = new char[3] {'<', '>', '^' };
@@ -60,6 +53,13 @@ namespace Sketch
             gameInfo = game;
             PosX = screenInfo.Width / 2;
             PosY = screenInfo.Height - 2;
+        }
+
+        public void ResetPlayerInfo()
+        {
+            PosX = screenInfo.Width / 2;
+            PosY = screenInfo .Height - 2;
+            Velocity = 0;
         }
 
         public void HandleOperate()
@@ -96,7 +96,6 @@ namespace Sketch
                 if (PosX < 0 || PosX >= screenInfo.Width || screenInfo.Wall[1, PosX] != ' ')
                 {
                     gameInfo.GameOver();
-                    return;
                 }
             }
         }
