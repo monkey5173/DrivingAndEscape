@@ -32,7 +32,7 @@ namespace Sketch
         {
             if (gameInfo.GameIsPlaying == true)
             {
-                if (stopwatch.ElapsedMilliseconds > 500)
+                if (stopwatch.ElapsedMilliseconds > 300)
                 {
                     itemGenerator.Add(new Item());
                     stopwatch.Restart();

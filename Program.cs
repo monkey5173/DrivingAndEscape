@@ -42,7 +42,7 @@ namespace Sketch
                     screen.Rendering();
                     player.Rendering();
                     itemgenerator.Rendering();
-                    Thread.Sleep(TimeSpan.FromMilliseconds(33));
+                    Thread.Sleep(TimeSpan.FromMilliseconds(25));
                 }
 
             }

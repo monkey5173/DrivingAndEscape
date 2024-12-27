@@ -62,7 +62,7 @@ namespace Sketch
         {
             while (true)
             {
-                Console.WindowHeight = 35;
+                Console.WindowHeight = 40;
                 Console.WindowWidth = 120;
                 screenInfo.Score = 0;
                 Console.WriteLine("----------------------------------------------------------------------------------------------------------------------");
