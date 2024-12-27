@@ -10,16 +10,24 @@ namespace Sketch
            
     class Player
     {
-        int _position;
+        int _posX;
+        int _posY;
         int _velocity;
         Game gameInfo;
         Screen screenInfo;
         char[] _shape;
+        char _seletShape;
 
-        public int Position
+        public int PosX
         {
-            get { return _position; }
-            set { _position = value; }
+            get { return _posX; }
+            set { _posX = value; }
+        }
+
+        public int PosY
+        {
+            get { return _posY; }
+            set { _posY = value; }
         }
 
         public int Velocity
@@ -34,9 +42,16 @@ namespace Sketch
             set { _shape = value; }
         }
 
+        public char SeletShape
+        {
+            get { return _seletShape; }
+            set { _seletShape = value; }
+        }
+
         public Player()
         {
             Shape = new char[3] {'<', '>', '^' };
+            Velocity = 0;
         }
 
         public void SGinfo(Screen screen, Game game)
@@ -71,15 +86,70 @@ namespace Sketch
 
         public void Update()
         {
-            Position 
-
-            car.Position += car.Velocity; // 플레이어 포지션에 속도(방향)의 값을 업데이트 해준다.
-
-            //충돌 감지 기능
-            if (car.Position < 0 || car.Position >= Width || Wall[1, car.Position] != ' ')
+            if (gameInfo.GameIsPlaying == true)
             {
-                gameInfo.GameOver();
-                return;
+                PosX = screenInfo.Width / 2;
+                PosY = screenInfo.Height - 2;
+
+                for (int i = 0; i < screenInfo.Height; i++)
+                {
+                    for (int j = 0; j < screenInfo.Width; j++)
+                    {
+                        if (i == PosY && j == PosX)
+                        {
+                            if (Velocity < 0)
+                            {
+                                SeletShape = Shape[0];
+                            }
+                            else if (Velocity > 0)
+                            {
+                                SeletShape = Shape[1];
+                            }
+                            else
+                            {
+                                SeletShape = Shape[2];
+                            }
+                        }
+                    }
+                }
+
+                //충돌 감지 기능
+                if (PosX < 0 || PosX >= screenInfo.Width || screenInfo.Wall[PosY, PosX] != ' ')
+                {
+                    gameInfo.GameOver();
+                    return;
+                }
+
+                PosX += Velocity; // 플레이어 포지션에 속도(방향)의 값을 업데이트 해준다.
+            }
+        }
+
+        public void Rendering()
+        {
+            if (gameInfo.GameIsPlaying == true)
+            {
+                for (int i = 0; i < screenInfo.Height; i++)
+                {
+                    for (int j = 0; j < screenInfo.Width; j++)
+                    {
+                        if (i == PosY && j == PosX)
+                        {
+                            if (Velocity < 0)
+                            {
+                                Console.Write(SeletShape);
+                            }
+                            else if (Velocity > 0)
+                            {
+                                Console.Write(SeletShape);
+                            }
+                            else
+                            {
+                                Console.Write(SeletShape);
+                            }
+                        }
+                    }
+                }
+             
             }
         }
     }
