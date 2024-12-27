@@ -35,10 +35,12 @@ namespace Sketch
                 {
                     player.HandleOperate();
                     screen.Update(stopwatch);
+                    player.Update();
                     itemgenerator.SetItem();
                     itemgenerator.Update();
 
                     screen.Rendering();
+                    player.Rendering();
                     itemgenerator.Rendering();
                     Thread.Sleep(TimeSpan.FromMilliseconds(33));
                 }

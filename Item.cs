@@ -43,7 +43,7 @@ namespace Sketch
         {
             PosX = random.Next(1, 49);
             PosY = 0;
-            ItemType = new char[3] {'★', '♥', '■'};
+            ItemType = new char[3] {'a', 'b', 'c'};
             randItems = ItemType[random.Next(0, ItemType.Length)];
         }
 
