@@ -87,7 +87,7 @@ class Screen
                 for (int j = 0; j < Width; j++)
                 {
                     // 삼항 연산자를 이용해서 벽과 길 만듬.             
-                    Wall[i, j] = (j < LeftEdge || j > RightEdge) ? '.' : ' ';
+                    Wall[i, j] = (j < LeftEdge || j >= RightEdge) ? '.' : ' ';
                 }
             }
         }
@@ -158,7 +158,7 @@ class Screen
                     for (int i = 0; i < Width - 1; i++)
                     {
                         Wall[Height - 1, i] = Wall[Height - 1, i + 1];
-                        // 벽 배열에 width(X) 축에 + 1 즉, 한칸 오른쪽 값을 대입
+                        // 벽 배열에 width X축에 + 1 즉, 한칸 오른쪽 값을 대입
                         // 이렇게 대입하면 한칸 오른쪽 값이 그 전 값에 계속 대입되면서 마치 도로가 왼쪽으로 이동하게끔 만들 수 있음
                     }
                     Wall[Height - 1, Width - 1] = '.'; // 오른쪽 끝은 벽처리
