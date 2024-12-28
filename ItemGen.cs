@@ -48,11 +48,14 @@ namespace Sketch
                 {
                     itemGenerator[i].Update(gameInfo);
 
+                    // 만약에 아이템의 Y좌표가 28즉 플레이어하고 같은 위치까지 오면
+                    // 해당 리스트의 값을 제거한다. 내려오고 나면 아이템을 화면에서 삭제 시켜야하니까
                     if (itemGenerator[i].PosY > screenInfo.Height - 1)
                     {
                         itemGenerator.RemoveAt(i);
                     }
 
+                    // 만약에 플레이어의 좌표와 떨어지는 아이템의 좌표가 같다면 즉, 아이템에 맞았다면 게임오버.
                     else if (itemGenerator[i].PosY == playerInfo.PosY && itemGenerator[i].PosX == playerInfo.PosX)
                     {
                         gameInfo.GameOver();
@@ -66,6 +69,7 @@ namespace Sketch
         {
             if (gameInfo.GameIsPlaying == true)
             {
+                //아이템 리스트의 수 만큼 반복하면서 해당 리스트의 값을 랜더링 해준다.
                 for (int i = 0; i < itemGenerator.Count; i++)
                 {
                     itemGenerator[i].Rendering(screenInfo, gameInfo);
