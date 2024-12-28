@@ -13,11 +13,12 @@ namespace Sketch
         Player playerInfo;
         Screen screenInfo;
         Game gameInfo;
-        Stopwatch stopwatch = new Stopwatch();
+        Stopwatch stopwatch;
 
         public ItemGen()
         {
             itemGenerator = new List<Item>();
+            stopwatch = new Stopwatch();
             stopwatch.Start();
         }
 
@@ -49,7 +50,7 @@ namespace Sketch
                     itemGenerator[i].Update(gameInfo);
 
                     // 만약에 아이템의 Y좌표가 28즉 플레이어하고 같은 위치까지 오면
-                    // 해당 리스트의 값을 제거한다. 내려오고 나면 아이템을 화면에서 삭제 시켜야하니까
+                    // 해당 리스트의 값을 제거한다. 다 내려온 아이템은 화면에서 삭제
                     if (itemGenerator[i].PosY > screenInfo.Height - 1)
                     {
                         itemGenerator.RemoveAt(i);
