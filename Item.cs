@@ -9,7 +9,6 @@ namespace Sketch
     class Item
     {
         char[] _itemType;
-        int _velocity;
         int _posX;
         int _posY;
         char randItems;
@@ -19,12 +18,6 @@ namespace Sketch
         {
             get { return _itemType; }
             set { _itemType = value; }
-        }
-
-        public int Velocity
-        {
-            get { return _velocity; }
-            set { _velocity = value; }
         }
 
         public int PosX
